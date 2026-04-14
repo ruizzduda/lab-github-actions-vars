@@ -13,12 +13,12 @@ jobs:
 
     steps:
       - name: "Passo 1: Variaveis em Escopos Diferentes"
-        env:
-          STEP_TEMP: "Processando..." # 3. Variavel de escopo de step
-        run: |
-          echo "APP_NAME (Global): $APP_NAME"
-          echo "BUILD_VERSION (Job): $BUILD_VERSION"
-          echo "STEP_TEMP (Step): $STEP_TEMP"
+  env:
+    STEP_TEMP: "Processando..." 
+  run: |
+    echo "APP_NAME (Global): $APP_NAME"
+    echo "BUILD_VERSION (Job): $BUILD_VERSION"
+    echo "STEP_TEMP (Step): $STEP_TEMP"
 
       - name: "Passo 2: Observando o Escopo da STEP_TEMP"
         run: |
