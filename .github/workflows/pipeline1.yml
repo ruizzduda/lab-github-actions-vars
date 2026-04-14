@@ -1,42 +1,54 @@
-name: Desafio
+name: Desafio de Variaveis e Escopos
 
 on:
-  workflow_dispatch:
+  workflow_dispatch: # Permite execução manual
 
 env:
-  APP_NAME: MeuApp
+  APP_NAME: "MeuProjetoIncrivel" # Escopo GLOBAL
 
 jobs:
-  build:
+  build_app:
     runs-on: ubuntu-latest
     env:
-      BUILD_VERSION: v1
-
+      BUILD_VERSION: "1.2.0" # Escopo de JOB
+    
     steps:
-      - name: Passo 1
+      - name: "Passo 1: Variáveis em Escopos Diferentes"
         env:
-          STEP_TEMP: Processando
+          STEP_TEMP: "Dados Temporarios" # Escopo de STEP
         run: |
-          echo "APP: $APP_NAME"
-          echo "VERSION: $BUILD_VERSION"
-          echo "TEMP: $STEP_TEMP"
+          echo "App: $APP_NAME"
+          echo "Versão: $BUILD_VERSION"
+          echo "Temp: $STEP_TEMP"
 
-      - name: Passo 2
-        run: echo "TEMP fora: $STEP_TEMP"
+      - name: "Passo 2: Observando o Escopo da STEP_TEMP"
+        run: |
+          echo "App: $APP_NAME"
+          echo "Versão: $BUILD_VERSION"
+          echo "Tentando ler STEP_TEMP (deve falhar/vazio): $STEP_TEMP"
 
-      - name: Passo 3
-        run: echo "$GITHUB_ACTOR $GITHUB_REPOSITORY $RUNNER_OS"
+      - name: "Passo 3: Auditoria com Variáveis Padrão"
+        run: |
+          # TODO: Complete com as variáveis padrão
+          echo "O usuário $GITHUB_ACTOR disparou este workflow no repositório $GITHUB_REPOSITORY. O sistema operacional do runner é $RUNNER_OS."
 
-      - name: Passo 4
-        run: echo "BUILD_HASH=$RANDOM" >> $GITHUB_ENV
+      - name: "Passo 4: Gerar Código Dinâmico"
+        run: |
+          # TODO: Gerar número aleatório e enviar para $GITHUB_ENV
+          RANDOM_NUM=$RANDOM
+          echo "BUILD_HASH=$RANDOM_NUM" >> $GITHUB_ENV
 
-      - name: Passo 5
-        run: echo "HASH $BUILD_HASH"
+      - name: "Passo 5: Usar Código Dinâmico"
+        run: |
+          # TODO: Imprimir o hash gerado
+          echo "O hash gerado para este build foi: $BUILD_HASH"
 
-  deploy:
+  deploy_app:
+    needs: build_app
     runs-on: ubuntu-latest
     steps:
-      - name: Passo 6
+      - name: "Passo 6: Acessando Secrets e Vars"
         run: |
-          echo "${{ vars.URL_AMBIENTE }}"
-          echo "${{ secrets.API_TOKEN_PROD }}"
+          # TODO: Imprimir URL_AMBIENTE (variable) e API_TOKEN_PROD (secret)
+          echo "URL do Ambiente: ${{ vars.URL_AMBIENTE }}"
+          echo "Token da API: ${{ secrets.API_TOKEN_PROD }}"
