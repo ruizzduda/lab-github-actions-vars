@@ -9,7 +9,6 @@ env:
 jobs:
   build_app:
     runs-on: ubuntu-latest
-
     env:
       BUILD_VERSION: v1.0.0
 
@@ -18,7 +17,6 @@ jobs:
         run: |
           echo "APP_NAME (Global): $APP_NAME"
           echo "BUILD_VERSION (Job): $BUILD_VERSION"
-          echo "STEP_TEMP (Step): Processando..."
 
       - name: Passo 2: Observando o Escopo da STEP_TEMP
         run: |
@@ -41,7 +39,6 @@ jobs:
 
   deploy_app:
     runs-on: ubuntu-latest
-
     steps:
       - name: Passo 6: Acessando Secrets e Vars
         run: |
