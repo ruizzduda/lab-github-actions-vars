@@ -2,7 +2,7 @@ name: Desafio de Variaveis e Escopos
 on: workflow_dispatch
 
 env:
-  APP_NAME: "MeuAppIncrível" # 1. Variavel de escopo global
+  APP_NAME: "MeuAppIncrivel" # 1. Variavel de escopo global
 
 jobs:
   build_app:
