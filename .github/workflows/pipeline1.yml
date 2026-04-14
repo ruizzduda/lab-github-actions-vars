@@ -1,21 +1,22 @@
 name: Desafio de Variaveis e Escopos
 
 on:
-  workflow_dispatch: # Permite execução manual
+  workflow_dispatch:
 
 env:
-  APP_NAME: "MeuProjetoIncrivel" # Escopo GLOBAL
+  APP_NAME: "MeuProjetoIncrivel"
 
 jobs:
   build_app:
     runs-on: ubuntu-latest
+    # Linha 17: O 'env' deve estar alinhado com o 'runs-on'
     env:
-      BUILD_VERSION: "1.2.0" # Escopo de JOB
+      BUILD_VERSION: "1.2.0"
     
     steps:
       - name: "Passo 1: Variáveis em Escopos Diferentes"
         env:
-          STEP_TEMP: "Dados Temporarios" # Escopo de STEP
+          STEP_TEMP: "Dados Temporarios"
         run: |
           echo "App: $APP_NAME"
           echo "Versão: $BUILD_VERSION"
@@ -25,22 +26,23 @@ jobs:
         run: |
           echo "App: $APP_NAME"
           echo "Versão: $BUILD_VERSION"
-          echo "Tentando ler STEP_TEMP (deve falhar/vazio): $STEP_TEMP"
+          # STEP_TEMP não aparecerá aqui pois era exclusiva do Step anterior
+          echo "Tentando ler STEP_TEMP: $STEP_TEMP"
 
       - name: "Passo 3: Auditoria com Variáveis Padrão"
         run: |
-          # TODO: Complete com as variáveis padrão
+          # Resposta do Passo 3
           echo "O usuário $GITHUB_ACTOR disparou este workflow no repositório $GITHUB_REPOSITORY. O sistema operacional do runner é $RUNNER_OS."
 
       - name: "Passo 4: Gerar Código Dinâmico"
         run: |
-          # TODO: Gerar número aleatório e enviar para $GITHUB_ENV
+          # Resposta do Passo 4: O segredo é o sinal de >>
           RANDOM_NUM=$RANDOM
           echo "BUILD_HASH=$RANDOM_NUM" >> $GITHUB_ENV
 
       - name: "Passo 5: Usar Código Dinâmico"
         run: |
-          # TODO: Imprimir o hash gerado
+          # Resposta do Passo 5: Agora a variável injetada está disponível
           echo "O hash gerado para este build foi: $BUILD_HASH"
 
   deploy_app:
@@ -49,6 +51,6 @@ jobs:
     steps:
       - name: "Passo 6: Acessando Secrets e Vars"
         run: |
-          # TODO: Imprimir URL_AMBIENTE (variable) e API_TOKEN_PROD (secret)
+          # Resposta do Passo 6: Usando a sintaxe de contexto ${{ }}
           echo "URL do Ambiente: ${{ vars.URL_AMBIENTE }}"
           echo "Token da API: ${{ secrets.API_TOKEN_PROD }}"
