@@ -2,20 +2,19 @@ name: Desafio de Variaveis e Escopos
 on: workflow_dispatch
 
 env:
-  APP_NAME: "MeuAppIncrível"
+  APP_NAME: "MeuAppIncrível" # 1. Variavel de escopo global
 
 jobs:
   build_app:
     name: Build da Aplicacao
     runs-on: ubuntu-latest
-
     env:
-      BUILD_VERSION: "v1.0.0"
+      BUILD_VERSION: "v1.0.0" # 2. Variavel de escopo de job
 
     steps:
       - name: "Passo 1: Variaveis em Escopos Diferentes"
         env:
-          STEP_TEMP: "Processando..."
+          STEP_TEMP: "Processando..." # 3. Variavel de escopo de step
         run: |
           echo "APP_NAME (Global): $APP_NAME"
           echo "BUILD_VERSION (Job): $BUILD_VERSION"
@@ -32,6 +31,7 @@ jobs:
           echo "O usuario $GITHUB_ACTOR disparou este workflow no repositorio $GITHUB_REPOSITORY. O sistema operacional do runner e $RUNNER_OS."
 
       - name: "Passo 4: Gerar Codigo Dinamico"
+        id: gerar_codigo
         run: |
           RANDOM_NUM=$RANDOM
           echo "BUILD_HASH=$RANDOM_NUM" >> $GITHUB_ENV
